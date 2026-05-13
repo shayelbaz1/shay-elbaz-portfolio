@@ -125,69 +125,132 @@ const BackgroundBlobs = () => (
     <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-teal-500/10 blur-[120px] rounded-full animate-float opacity-50" style={{ animationDelay: '-2s' }} />
     <div className="absolute top-[20%] right-[10%] w-px h-[40vh] bg-gradient-to-b from-transparent via-teal-500/10 to-transparent" />
     <div className="absolute top-[40%] left-[5%] w-px h-[30vh] bg-gradient-to-b from-transparent via-teal-400/10 to-transparent" />
+    <div className="fixed top-0 left-0 w-full h-1 z-[100] origin-left bg-teal-500 shadow-[0_0_15px_rgba(45,212,191,0.5)]" id="scroll-progress" />
   </div>
 );
+
+const Spotlight = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleScroll = () => {
+      const scrollProgress = document.getElementById("scroll-progress");
+      if (scrollProgress) {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        scrollProgress.style.transform = `scaleX(${progress / 100})`;
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <div 
+      className="fixed inset-0 pointer-events-none z-50 transition-opacity duration-300"
+      style={{
+        background: `radial-gradient(600px at ${position.x}px ${position.y}px, rgba(45, 212, 191, 0.05), transparent 80%)`
+      }}
+    />
+  );
+};
 
 export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-[#e5e5e5] font-sans selection:bg-teal-500/30 selection:text-teal-200 overflow-x-hidden">
       <BackgroundBlobs />
+      <Spotlight />
       
       {/* Header / Hero Section */}
       <header className="max-w-6xl mx-auto px-6 pt-16 lg:pt-32 pb-16 border-b border-white/5 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-start text-center lg:text-left">
           {/* Profile Image Wrap */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="w-40 h-40 lg:w-56 lg:h-56 shrink-0 relative"
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 100,
+              damping: 20,
+              duration: 0.8 
+            }}
+            className="w-44 h-44 lg:w-64 lg:h-64 shrink-0 relative"
           >
-            <div className="absolute inset-0 bg-teal-500/20 blur-2xl rounded-full" />
-            <div className="w-full h-full rounded-3xl overflow-hidden border-2 border-teal-500/30 shadow-2xl relative z-10 p-1 bg-[#121212]">
+            <div className="absolute inset-0 bg-teal-500/20 blur-3xl rounded-full" />
+            <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-2 border-teal-500/30 shadow-2xl relative z-10 p-1.5 bg-[#121212] group">
               <img 
                 src={profileImg} 
                 alt="Shay Elbaz" 
-                className="w-full h-full object-cover rounded-2xl"
+                className="w-full h-full object-cover rounded-[2rem] group-hover:scale-110 group-hover:rotate-2 transition-transform duration-700"
               />
+              <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/0 via-teal-500/0 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             </div>
-            <div className="absolute -bottom-2 -right-2 p-3 bg-teal-500 rounded-xl text-black shadow-lg z-20 animate-float">
-              <Code2 className="w-6 h-6" />
-            </div>
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-4 -right-4 p-4 bg-teal-500 rounded-2xl text-black shadow-2xl z-20 border-4 border-[#050505]"
+            >
+              <Code2 className="w-8 h-8" />
+            </motion.div>
           </motion.div>
 
           <div className="flex-1">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
             >
-              <h1 className="text-5xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-[0.85] mb-4">
+              <motion.h1 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-5xl lg:text-9xl font-black tracking-tighter text-white uppercase leading-[0.8] mb-6"
+              >
                 Shay <span className="text-teal-400">Elbaz</span>
-              </h1>
-              <p className="text-xl lg:text-3xl font-bold text-white/40 tracking-tighter uppercase mb-8">
-                {DATA.title}
-              </p>
+              </motion.h1>
               
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
-                <ContactInfo icon={MapPin} text={DATA.contact.location} />
-                <ContactInfo icon={Phone} text={DATA.contact.phone} />
-                <ContactInfo icon={Mail} text={DATA.contact.email} />
-              </div>
-
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                <a 
-                  href="#" 
-                  className="flex items-center gap-3 px-8 py-4 bg-teal-500 text-black font-black text-sm rounded-2xl hover:bg-teal-400 transition-all active:scale-95 group shadow-lg shadow-teal-500/20"
-                >
-                  <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
-                  DOWNLOAD FULL CV
-                </a>
-                <div className="flex gap-2">
-                  <SocialLink href={DATA.contact.linkedin} icon={Linkedin} />
-                  <SocialLink href={DATA.contact.github} icon={Github} />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                <p className="text-xl lg:text-3xl font-bold text-white/60 tracking-tight uppercase mb-8 max-w-2xl">
+                  {DATA.title}
+                </p>
+                
+                <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+                  <ContactInfo icon={MapPin} text={DATA.contact.location} />
+                  <ContactInfo icon={Phone} text={DATA.contact.phone} />
+                  <ContactInfo icon={Mail} text={DATA.contact.email} />
                 </div>
-              </div>
+
+                <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                  <motion.a 
+                    whileHover={{ scale: 1.02, translateY: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="https://docs.google.com/document/d/1dgApG8ZGOjg9J3u485PrWST9NO8w6S9QlqImvhsLL2c" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 px-10 py-5 bg-teal-500 text-black font-black text-sm lg:text-base rounded-2xl hover:bg-teal-400 transition-all group shadow-xl shadow-teal-500/30"
+                  >
+                    <ExternalLink className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+                    VIEW FULL CV
+                  </motion.a>
+                  <div className="flex gap-3">
+                    <SocialLink href={DATA.contact.linkedin} icon={Linkedin} />
+                    <SocialLink href={DATA.contact.github} icon={Github} />
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -267,9 +330,16 @@ export default function App() {
             <h3 className="text-sm font-black text-teal-400 uppercase tracking-widest mb-8">Technical arsenal</h3>
             <div className="flex flex-wrap gap-2">
               {DATA.technicalFocus.map((skill, i) => (
-                <span key={i} className="px-3 py-2 bg-white/5 border border-white/5 rounded-lg text-xs font-bold uppercase tracking-wider text-white hover:border-teal-400/30 hover:bg-teal-400/5 transition-all cursor-default">
+                <motion.span 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  key={i} 
+                  className="px-3 py-2 bg-white/5 border border-white/5 rounded-lg text-xs font-bold uppercase tracking-wider text-white hover:border-teal-400/30 hover:bg-teal-400/5 transition-all cursor-default"
+                >
                   {skill}
-                </span>
+                </motion.span>
               ))}
             </div>
           </section>
@@ -370,20 +440,5 @@ function ExperienceItem({ exp }: { exp: any; key?: React.Key }) {
   );
 }
 
-function Smartphone({ className }: { className?: string }) {
-  return (
-    <svg 
-      className={className} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-      <path d="M12 18h.01" />
-    </svg>
-  );
-}
+
 
