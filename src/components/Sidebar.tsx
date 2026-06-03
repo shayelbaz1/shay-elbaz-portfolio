@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Code2 } from "lucide-react";
 import { DATA } from "../constants/data";
-import { SectionHeading, Card } from "./Shared";
+import { THEME } from "../constants/theme";
+import { SectionHeading } from "./Shared";
 
 export function Sidebar() {
   return (
@@ -14,7 +15,7 @@ export function Sidebar() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.04, duration: 0.4 }}
+              transition={{ delay: i * THEME.animation.stagger.xs, duration: THEME.animation.durations.scrollReveal }}
               key={i}
               className="px-3 py-2 bg-white/5 border border-white/5 rounded-lg text-xs font-bold uppercase tracking-wider text-white hover:border-teal-400/30 hover:bg-teal-400/5 transition-all cursor-default"
             >

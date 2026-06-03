@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Code2 } from "lucide-react";
 import { DATA } from "../constants/data";
+import { ANIMATION_VARIANTS, THEME } from "../constants/theme";
 import { Card, SectionHeading } from "./Shared";
 
 export function ProjectsSection() {
@@ -14,7 +15,7 @@ export function ProjectsSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: idx * 0.08 }}
+            transition={{ duration: THEME.animation.durations.scrollReveal, delay: idx * THEME.animation.stagger.md }}
             className="group relative"
           >
             <div className="absolute inset-0 bg-teal-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />

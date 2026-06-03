@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ElementType, ReactNode, useEffect, useState } from "react";
+import { THEME, ANIMATION_VARIANTS } from "../constants/theme";
 
 export function SectionHeading({ icon: Icon, title }: { icon: ElementType; title: string }) {
   return (
@@ -19,7 +20,7 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: THEME.animation.durations.scrollReveal, ease: "easeOut" }}
       className={`p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-teal-500/30 transition-all hover:bg-white/[0.07] ${className}`}
     >
       {children}

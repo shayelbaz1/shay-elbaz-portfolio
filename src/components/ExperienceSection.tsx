@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ChevronRight, Code2 } from "lucide-react";
 import { DATA } from "../constants/data";
+import { ANIMATION_VARIANTS, THEME } from "../constants/theme";
 import { SectionHeading } from "./Shared";
 
 function ExperienceItem({ exp, index }: { exp: any; index: number }) {
@@ -9,7 +10,7 @@ function ExperienceItem({ exp, index }: { exp: any; index: number }) {
       initial={{ opacity: 0, x: -10 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: index * 0.08 }}
+      transition={{ duration: THEME.animation.durations.scrollReveal, delay: index * THEME.animation.stagger.md }}
       className="group"
     >
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2 mb-6">
