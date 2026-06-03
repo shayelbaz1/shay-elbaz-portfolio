@@ -13,27 +13,58 @@ export default function App() {
       <BackgroundBlobs />
       <Spotlight />
 
+      <div className="relative z-20">
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050505]/95 to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 py-6 lg:py-8">
+          <motion.nav
+            initial={{ opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: "easeOut" }}
+            className="flex flex-wrap items-center justify-between gap-4"
+          >
+            <span className="text-sm font-black tracking-[0.45em] uppercase text-white/75">Shay Elbaz</span>
+            <div className="hidden md:flex items-center gap-8 text-sm text-white/60 font-medium">
+              <a href="#experience" className="transition hover:text-white">Experience</a>
+              <a href="#projects" className="transition hover:text-white">Projects</a>
+              <a href="#contact" className="transition hover:text-white">Contact</a>
+            </div>
+            <a
+              href="https://docs.google.com/document/d/1dgApG8ZGOjg9J3u485PrWST9NO8w6S9QlqImvhsLL2c"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 px-5 py-3 text-sm font-semibold text-black shadow-xl shadow-teal-400/20 transition hover:opacity-90"
+            >
+              View CV
+            </a>
+          </motion.nav>
+        </div>
+      </div>
+
       <Hero />
 
-      <main className="max-w-6xl mx-auto px-6 py-20 lg:py-32 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-32 relative z-10">
-        <div className="space-y-32">
-          <section id="summary">
-            <SectionHeading icon={Code2} title="Professional Summary" />
-            <p className="text-2xl lg:text-4xl text-white font-medium leading-[1.3] lg:leading-[1.2] tracking-tight">
-              {DATA.summary}
-            </p>
-          </section>
+      <main className="max-w-7xl mx-auto px-6 pb-32 pt-16 lg:pb-40 lg:pt-24 relative z-10">
+        <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_0.65fr] gap-16 xl:gap-24">
+          <div className="space-y-28">
+            <section id="summary">
+              <SectionHeading icon={Code2} title="Professional Summary" />
+              <div className="glass rounded-[2.5rem] border border-white/10 p-10 shadow-[0_30px_120px_rgba(0,0,0,0.25)]">
+                <p className="text-xl lg:text-2xl text-white/80 leading-relaxed tracking-tight">
+                  {DATA.summary}
+                </p>
+              </div>
+            </section>
 
-          <ExperienceSection />
-          <ProjectsSection />
+            <ExperienceSection />
+            <ProjectsSection />
+          </div>
+
+          <Sidebar />
         </div>
-
-        <Sidebar />
       </main>
 
-      <footer className="max-w-6xl mx-auto px-6 py-24 border-t border-white/5 text-center">
-        <div className="inline-flex items-center gap-4 px-6 py-2 bg-white/5 border border-white/5 rounded-full text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
-          Built with Precision by Shay Elbaz • 2026
+      <footer className="max-w-7xl mx-auto px-6 pb-16 text-center">
+        <div className="inline-flex items-center gap-4 px-7 py-3 bg-white/5 border border-white/10 rounded-full text-[11px] font-black uppercase tracking-[0.45em] text-white/30">
+          Built with precision by Shay Elbaz • 2026
         </div>
       </footer>
 

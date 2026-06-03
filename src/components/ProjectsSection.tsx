@@ -7,51 +7,56 @@ import { Card, SectionHeading } from "./Shared";
 export function ProjectsSection() {
   return (
     <section id="projects">
-      <SectionHeading icon={Code2} title="Key Project Highlight" />
-      <div className="space-y-10">
+      <SectionHeading icon={Code2} title="Featured Products" />
+      <div className="grid gap-10 lg:grid-cols-2">
         {DATA.projects.map((project, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: THEME.animation.durations.scrollReveal, delay: idx * THEME.animation.stagger.md }}
-            className="group relative"
+            className="relative"
           >
-            <div className="absolute inset-0 bg-teal-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Card className="relative overflow-hidden p-8 lg:p-12 border-white/10 hover:border-teal-500/30 transition-all">
-              <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
-                <div className="flex-1">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-teal-500 rounded-2xl flex items-center justify-center text-black font-black text-xl">
-                      S
-                    </div>
-                    <h3 className="text-3xl lg:text-5xl font-black text-white tracking-tighter uppercase">
-                      {project.name.split(" - ")[0]}
+            <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-400/10 blur-2xl opacity-80" />
+            <Card className="relative overflow-hidden p-8 lg:p-10">
+              <div className="flex flex-col gap-8 lg:gap-10">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-teal-400 to-cyan-400 text-black text-xl font-black shadow-lg shadow-teal-500/20">
+                    {project.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.35em] text-teal-300/90">{project.category || "Core System"}</p>
+                    <h3 className="mt-3 text-3xl font-black uppercase tracking-tight text-white">
+                      {project.name}
                     </h3>
                   </div>
-                  <p className="text-lg lg:text-xl text-teal-400 font-bold mb-6 italic">
-                    {project.description}
-                  </p>
-                  <p className="text-white/70 text-lg leading-relaxed mb-8 font-medium">
-                    {project.details}
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {project.tags.map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-4 py-2 bg-white/5 border border-white/5 rounded-xl text-xs font-black uppercase tracking-widest text-white/50"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                </div>
+
+                <p className="text-xl text-white/70 leading-relaxed tracking-tight">
+                  {project.description}
+                </p>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <span className="block text-xs uppercase tracking-[0.35em] text-white/50">Platform</span>
+                    <p className="mt-3 text-base font-semibold text-white">{project.platform || "Mobile + Web"}</p>
+                  </div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <span className="block text-xs uppercase tracking-[0.35em] text-white/50">Impact</span>
+                    <p className="mt-3 text-base font-semibold text-white">100K+ active users</p>
                   </div>
                 </div>
-                <div className="hidden lg:block text-right">
-                  <span className="block text-6xl font-black text-white tracking-tighter leading-none">100K+</span>
-                  <span className="block text-xs text-white/30 font-black uppercase tracking-widest mt-2">
-                    Active Users
-                  </span>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/70"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </Card>
