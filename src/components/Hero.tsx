@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ExternalLink, Github, Linkedin } from "lucide-react";
-import profileImg from "../assets/images/regenerated_image_1778670822728.jpg";
+import profileImg from "../assets/images/regenerated_image_1778670822728.png";
 import { DATA } from "../constants/data";
 import { THEME } from "../constants/theme";
 import { SocialLink } from "./Shared";
@@ -11,12 +11,12 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(45,212,191,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(24,132,253,0.12),_transparent_28%)] opacity-90" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#050505]/95 to-transparent pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] items-center">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.9fr_auto] items-center">
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.85, ease: "easeOut" }}
-            className="space-y-8"
+            className="space-y-8 order-2 lg:order-1"
           >
             <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.45em] text-white/70 shadow-sm shadow-teal-500/10">
               Senior Full-Stack & Mobile Developer
@@ -64,28 +64,38 @@ export function Hero() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, ease: "easeOut" }}
-            className="relative"
+            className="relative flex flex-col items-stretch lg:items-end order-1 lg:order-2"
           >
-            <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 blur-3xl" />
+            <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-teal-500/10 via-transparent to-cyan-500/10 blur-2xl opacity-80 pointer-events-none" />
             <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-[#121212]/70 shadow-[0_30px_120px_rgba(0,0,0,0.35)]">
               <img
                 src={profileImg}
                 alt="Shay Elbaz"
-                className="h-[520px] w-full object-cover brightness-[0.92] contrast-[1.05]"
+                className="w-full h-[260px] sm:h-[360px] md:h-[460px] lg:h-[520px] object-cover brightness-[0.96] contrast-[1.03] rounded-[3rem]"
               />
-              <div className="absolute inset-x-0 bottom-0 px-8 pb-8">
-                <div className="rounded-[2rem] border border-white/10 bg-black/50 backdrop-blur-xl p-6 shadow-2xl shadow-black/30">
-                  <p className="text-sm uppercase tracking-[0.4em] text-white/50 mb-3">Lead Tech Partner</p>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/70">Product Strategy</span>
-                    <span className="rounded-full bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/70">Mobile Apps</span>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="absolute -bottom-8 right-0 flex gap-4">
+
+            {/* Social icons placed below the image and aligned right for a tidy layout */}
+            <div className="mt-6 flex justify-end gap-4">
               <SocialLink href={DATA.contact.linkedin} icon={Linkedin} />
               <SocialLink href={DATA.contact.github} icon={Github} />
+            </div>
+          </motion.div>
+
+          {/* Overlay moved out of the image: sits to the right on desktop, below on mobile */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="order-3 lg:order-3 lg:self-start"
+          >
+            <div className="mx-auto w-full max-w-lg sm:max-w-[420px] glass rounded-[1.5rem] border border-white/8 p-4 backdrop-blur-lg shadow-lg lg:ml-6">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/60 mb-3">Lead Tech Partner</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Product Strategy</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Mobile Apps</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Product Design</span>
+              </div>
             </div>
           </motion.div>
         </div>
