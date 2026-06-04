@@ -44,20 +44,7 @@ export function Hero() {
                 Explore work
               </a>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/10 backdrop-blur-xl">
-                <span className="block text-sm text-white/60 uppercase tracking-[0.3em] mb-3">Clients</span>
-                <span className="text-3xl font-black text-white">30+</span>
-              </div>
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/10 backdrop-blur-xl">
-                <span className="block text-sm text-white/60 uppercase tracking-[0.3em] mb-3">Projects</span>
-                <span className="text-3xl font-black text-white">90+</span>
-              </div>
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/10 backdrop-blur-xl">
-                <span className="block text-sm text-white/60 uppercase tracking-[0.3em] mb-3">Live products</span>
-                <span className="text-3xl font-black text-white">12</span>
-              </div>
-            </div>
+            {/* Stats removed per user request */}
           </motion.div>
 
           <motion.div
@@ -82,22 +69,7 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Overlay moved out of the image: sits to the right on desktop, below on mobile */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="order-3 lg:order-3 lg:self-start"
-          >
-            <div className="mx-auto w-full max-w-lg sm:max-w-[420px] glass rounded-[1.5rem] border border-white/8 p-4 backdrop-blur-lg shadow-lg lg:ml-6">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/60 mb-3">Lead Tech Partner</p>
-              <div className="flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Product Strategy</span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Mobile Apps</span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">Product Design</span>
-              </div>
-            </div>
-          </motion.div>
+          {/* Lead Tech Partner panel removed per user request */}
         </div>
       </div>
     </header>
